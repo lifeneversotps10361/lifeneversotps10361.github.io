@@ -1,0 +1,1796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Notebook - Professional</title>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            line-height: 1.6;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* 顶部导航栏 */
+        .top-nav {
+            background-color: #252526;
+            border-bottom: 1px solid #3e3e42;
+            padding: 0 20px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .app-logo {
+            font-size: 16px;
+            font-weight: 600;
+            color: #4ec9b0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 1px;
+        }
+
+        .nav-tab {
+            background-color: #2d2d2d;
+            border: 1px solid #3e3e42;
+            color: #cccccc;
+            padding: 6px 16px;
+            font-size: 13px;
+            cursor: pointer;
+            border-radius: 3px 3px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .nav-tab:hover {
+            background-color: #3e3e42;
+        }
+
+        .nav-tab.active {
+            background-color: #1e1e1e;
+            border-bottom-color: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            background-color: transparent;
+            border: 1px solid #3e3e42;
+            color: #cccccc;
+            padding: 4px 12px;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background-color: #3e3e42;
+            color: #ffffff;
+        }
+
+        .nav-btn.primary {
+            background-color: #0e639c;
+            border-color: #0e639c;
+            color: white;
+        }
+
+        .nav-btn.primary:hover {
+            background-color: #1177bb;
+        }
+
+        /* 主内容区域 */
+        .main-content {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* 中央区域容器 - 包含编辑器和预览 */
+        .central-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* 左侧边栏 */
+        .sidebar {
+            width: 280px;
+            background-color: #252526;
+            border-right: 1px solid #3e3e42;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #3e3e42;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #cccccc;
+        }
+
+        .sidebar-tabs {
+            display: flex;
+            background-color: #2d2d2d;
+            border-bottom: 1px solid #3e3e42;
+        }
+
+        .sidebar-tab {
+            flex: 1;
+            padding: 8px 16px;
+            font-size: 12px;
+            color: #cccccc;
+            cursor: pointer;
+            text-align: center;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .sidebar-tab:hover {
+            background-color: #3e3e42;
+        }
+
+        .sidebar-tab.active {
+            background-color: #1e1e1e;
+            color: #4ec9b0;
+            border-bottom-color: #4ec9b0;
+        }
+
+        .sidebar-content {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .document-list {
+            list-style: none;
+        }
+
+        .document-item {
+            padding: 8px 20px;
+            color: #cccccc;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .document-item:hover {
+            background-color: #2a2d2e;
+        }
+
+        .document-item.active {
+            background-color: #2a2d2e;
+            border-left-color: #0e639c;
+            color: #ffffff;
+        }
+
+        .document-actions {
+            display: flex;
+            gap: 5px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .document-item:hover .document-actions {
+            opacity: 1;
+        }
+
+        .doc-action-btn {
+            background: none;
+            border: none;
+            color: #cccccc;
+            cursor: pointer;
+            font-size: 12px;
+            padding: 2px 5px;
+            border-radius: 2px;
+            transition: all 0.2s;
+        }
+
+        .doc-action-btn:hover {
+            background-color: #3e3e42;
+            color: #ffffff;
+        }
+
+        .word-list {
+            padding: 10px;
+        }
+
+        .word-item {
+            padding: 8px 10px;
+            border-bottom: 1px solid #3e3e42;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .word-item:last-child {
+            border-bottom: none;
+        }
+
+        .word-text {
+            color: #cccccc;
+            font-weight: 500;
+        }
+
+        .word-remove {
+            color: #999;
+            cursor: pointer;
+            font-size: 12px;
+            padding: 2px 5px;
+            border-radius: 2px;
+            transition: all 0.2s;
+        }
+
+        .word-remove:hover {
+            background-color: #f44336;
+            color: white;
+        }
+
+        /* 中央编辑区域 */
+        .editor-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #1e1e1e;
+        }
+
+        .editor-header {
+            padding: 10px 20px;
+            border-bottom: 1px solid #3e3e42;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #252526;
+        }
+
+        .editor-title {
+            font-size: 14px;
+            color: #cccccc;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .editor-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .editor {
+            flex: 1;
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            border: none;
+            outline: none;
+            padding: 20px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            resize: none;
+            tab-size: 4;
+        }
+
+        .editor::placeholder {
+            color: #6a6a6a;
+        }
+
+        /* 预览区域 - 纵向排列 */
+        .preview-container {
+            background-color: #252526;
+            border-top: 1px solid #3e3e42;
+            display: flex;
+            flex-direction: column;
+            height: 85%;
+            min-height: 500px;
+        }
+
+        .preview-header {
+            padding: 10px 20px;
+            border-bottom: 1px solid #3e3e42;
+            background-color: #2d2d2d;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .preview-controls {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .preview-controls .nav-btn {
+            padding: 2px 8px;
+            font-size: 11px;
+            gap: 3px;
+        }
+
+        .preview-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #cccccc;
+        }
+
+        .preview-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #d4d4d4;
+        }
+
+        .preview-content h1,
+        .preview-content h2,
+        .preview-content h3 {
+            color: #569cd6;
+            margin-bottom: 10px;
+        }
+
+        .preview-content p {
+            margin-bottom: 10px;
+        }
+
+        .preview-content .highlight {
+            cursor: pointer;
+            /* 移除所有视觉样式，与普通文本完全一致 */
+        }
+
+        .preview-content .highlight:hover {
+            /* 悬停时保持与普通文本一致，不添加任何样式 */
+        }
+
+        /* 单词释义气泡 */
+        .tooltip {
+            position: absolute;
+            background-color: #2d2d2d;
+            border: 1px solid #3e3e42;
+            border-radius: 4px;
+            padding: 10px;
+            max-width: 300px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            z-index: 1000;
+            display: none;
+        }
+
+        .tooltip-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .tooltip-word {
+            font-weight: 600;
+            color: #4ec9b0;
+        }
+
+        .tooltip-audio {
+            background: none;
+            border: none;
+            color: #cccccc;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 2px 5px;
+            border-radius: 2px;
+            transition: all 0.2s;
+        }
+
+        .tooltip-audio:hover {
+            background-color: #3e3e42;
+        }
+
+        .tooltip-meaning {
+            color: #d4d4d4;
+            font-size: 13px;
+            line-height: 1.4;
+            margin-bottom: 5px;
+        }
+
+        .tooltip-phonetic {
+            color: #999;
+            font-size: 12px;
+            font-style: italic;
+        }
+
+        /* 模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: #252526;
+            border: 1px solid #3e3e42;
+            border-radius: 4px;
+            padding: 20px;
+            min-width: 400px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .modal h3 {
+            color: #cccccc;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #cccccc;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            background-color: #3c3c3c;
+            border: 1px solid #3e3e42;
+            color: #d4d4d4;
+            padding: 8px 10px;
+            border-radius: 3px;
+            font-size: 13px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #0e639c;
+        }
+
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 6px 16px;
+            border-radius: 3px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid #3e3e42;
+            color: #cccccc;
+        }
+
+        .btn-secondary:hover {
+            background-color: #3e3e42;
+        }
+
+        .btn-primary {
+            background-color: #0e639c;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1177bb;
+        }
+
+        .btn-danger {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #e53935;
+        }
+
+        /* 欢迎屏幕 */
+        .welcome-screen {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .welcome-screen h2 {
+            color: #4ec9b0;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .welcome-screen p {
+            color: #cccccc;
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #424242;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4e4e4e;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            /* 纵向排列不需要调整预览宽度 */
+        }
+
+        @media (max-width: 1024px) {
+            /* 纵向排列下，预览区域始终显示 */
+            .sidebar {
+                width: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: 200px;
+            }
+            
+            .nav-tabs {
+                display: none;
+            }
+            
+            /* 在小屏幕上，预览区域高度调整 */
+            .preview-container {
+                height: 75%;
+                min-height: 400px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            /* 针对手机设备的优化 */
+            .top-nav {
+                padding: 0 10px;
+            }
+            
+            .nav-left {
+                gap: 10px;
+            }
+            
+            .app-logo {
+                font-size: 14px;
+            }
+            
+            .nav-btn {
+                padding: 4px 8px;
+                font-size: 11px;
+            }
+            
+            .sidebar {
+                height: 150px;
+            }
+            
+            .sidebar-header {
+                padding: 10px 15px;
+            }
+            
+            .document-item {
+                padding: 8px 15px;
+            }
+            
+            .editor {
+                padding: 15px;
+                font-size: 13px;
+            }
+            
+            .preview-content {
+                padding: 15px;
+                font-size: 13px;
+            }
+            
+            /* 在手机上，预览区域高度调整 */
+            .preview-container {
+                height: 70%;
+                min-height: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- 顶部导航栏 -->
+        <nav class="top-nav">
+            <div class="nav-left">
+                <div class="app-logo">
+                    <i class="fa fa-book"></i>
+                    English Notebook
+                </div>
+                <div class="nav-tabs">
+                    <div class="nav-tab active">
+                        <i class="fa fa-file-text-o"></i>
+                        document.txt
+                        <i class="fa fa-times"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-right">
+                <button id="export-data-btn" class="nav-btn">
+                    <i class="fa fa-download"></i>
+                    导出数据
+                </button>
+                <button id="import-data-btn" class="nav-btn">
+                    <i class="fa fa-upload"></i>
+                    导入数据
+                </button>
+                <input type="file" id="import-file-input" accept=".json" style="display: none;">
+                <button id="add-word-btn" class="nav-btn">
+                    <i class="fa fa-plus"></i>
+                    添加释义
+                </button>
+                <button id="new-doc-btn" class="nav-btn primary">
+                    <i class="fa fa-file-o"></i>
+                    新建文档
+                </button>
+            </div>
+        </nav>
+
+        <!-- 主内容区域 -->
+        <div class="main-content">
+            <!-- 左侧边栏 -->
+            <aside class="sidebar">
+                <div class="sidebar-tabs">
+                    <div class="sidebar-tab active" data-tab="documents">我的文档</div>
+                    <div class="sidebar-tab" data-tab="dictionary">我的词典</div>
+                </div>
+                
+                <div class="sidebar-content">
+                    <!-- 文档列表 -->
+                    <div id="documents-panel">
+                        <ul id="document-list" class="document-list">
+                            <!-- 文档列表将在这里动态生成 -->
+                        </ul>
+                    </div>
+                    
+                    <!-- 词典列表 -->
+                    <div id="dictionary-panel" style="display: none;">
+                        <div class="sidebar-header">
+                            <div class="sidebar-title">我的词典</div>
+                            <div class="dictionary-actions">
+                                <button id="export-dictionary-btn" class="doc-action-btn" title="导出词典">
+                                    <i class="fa fa-download"></i>
+                                </button>
+                                <button id="import-dictionary-btn" class="doc-action-btn" title="导入词典">
+                                    <i class="fa fa-upload"></i>
+                                </button>
+                                <input type="file" id="dictionary-file-input" accept=".json,.xlsx,.xls" style="display: none;">
+                            </div>
+                        </div>
+                        <div id="word-list" class="word-list">
+                            <!-- 单词列表将在这里动态生成 -->
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- 中央容器 - 包含编辑器和预览 -->
+            <div class="central-container">
+                <!-- 中央编辑区域 -->
+                <main class="editor-container">
+                    <div id="welcome-screen" class="welcome-screen">
+                        <h2>欢迎使用 English Notebook</h2>
+                        <p>这是一个专业的英文笔记本应用，支持文档管理、单词查询和实时预览功能。开始创建你的第一个文档吧！</p>
+                        <button id="welcome-new-doc-btn" class="btn btn-primary">
+                            <i class="fa fa-file-o"></i>
+                            创建第一个文档
+                        </button>
+                    </div>
+
+                    <div id="editor-wrapper" style="display: none;">
+                        <div class="editor-header">
+                            <div class="editor-title">
+                                <i class="fa fa-file-text-o"></i>
+                                <span id="current-doc-name">untitled.txt</span>
+                            </div>
+                            <div class="editor-actions">
+                                <button id="save-doc-btn" class="nav-btn">
+                                    <i class="fa fa-save"></i>
+                                    保存
+                                </button>
+                            </div>
+                        </div>
+                        <textarea id="editor" class="editor" placeholder="开始输入你的英文笔记..."></textarea>
+                    </div>
+                </main>
+
+                <!-- 预览区域 - 与编辑器纵向排列 -->
+                <aside class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-title">实时预览</div>
+                        <div class="preview-controls">
+                            <button id="decrease-font-btn" class="nav-btn" title="减小字体">
+                                <i class="fa fa-font"></i> A-
+                            </button>
+                            <button id="reset-font-btn" class="nav-btn" title="重置字体">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+                            <button id="increase-font-btn" class="nav-btn" title="增大字体">
+                                <i class="fa fa-font"></i> A+
+                            </button>
+                        </div>
+                    </div>
+                    <div id="preview-content" class="preview-content">
+                        <p>选择一个文档或创建新文档开始编辑...</p>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <!-- 新建文档模态框 -->
+    <div id="new-doc-modal" class="modal">
+        <div class="modal-content">
+            <h3>新建文档</h3>
+            <div class="form-group">
+                <label for="doc-name">文档名称</label>
+                <input type="text" id="doc-name" placeholder="输入文档名称">
+            </div>
+            <div class="modal-actions">
+                <button id="cancel-new-doc" class="btn btn-secondary">取消</button>
+                <button id="confirm-new-doc" class="btn btn-primary">创建</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 重命名文档模态框 -->
+    <div id="rename-doc-modal" class="modal">
+        <div class="modal-content">
+            <h3>重命名文档</h3>
+            <div class="form-group">
+                <label for="rename-doc-name">新文档名称</label>
+                <input type="text" id="rename-doc-name" placeholder="输入新文档名称">
+            </div>
+            <div class="modal-actions">
+                <button id="cancel-rename-doc" class="btn btn-secondary">取消</button>
+                <button id="confirm-rename-doc" class="btn btn-primary">重命名</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 删除文档模态框 -->
+    <div id="delete-doc-modal" class="modal">
+        <div class="modal-content">
+            <h3>删除文档</h3>
+            <p>确定要删除文档 "<span id="delete-doc-name"></span>" 吗？此操作无法撤销。</p>
+            <div class="modal-actions">
+                <button id="cancel-delete-doc" class="btn btn-secondary">取消</button>
+                <button id="confirm-delete-doc" class="btn btn-danger">删除</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加单词释义模态框 -->
+    <div id="add-word-modal" class="modal">
+        <div class="modal-content">
+            <h3>批量添加单词释义</h3>
+            <div class="form-group">
+                <label for="batch-words-input">单词和释义</label>
+                <textarea id="batch-words-input" style="min-height: 150px;" placeholder="格式：单词:释义,单词:释义,..."></textarea>
+            </div>
+            <p style="color: #999; font-size: 12px; margin-bottom: 15px;">
+                提示：每行一个词条，格式为"单词:释义"，多个词条用逗号或换行分隔
+            </p>
+            <div class="modal-actions">
+                <button id="cancel-add-word" class="btn btn-secondary">取消</button>
+                <button id="confirm-add-word" class="btn btn-primary">添加</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 单词释义气泡 -->
+    <div id="tooltip" class="tooltip">
+        <div class="tooltip-header">
+            <span id="tooltip-word" class="tooltip-word"></span>
+            <button id="tooltip-audio" class="tooltip-audio">
+                <i class="fa fa-volume-up"></i>
+            </button>
+        </div>
+        <div id="tooltip-meaning" class="tooltip-meaning"></div>
+        <div id="tooltip-phonetic" class="tooltip-phonetic"></div>
+    </div>
+
+    <script>
+        // 全局变量
+        let documents = [];
+        let userDictionary = {};
+        let currentDocumentId = null;
+        let selectedText = '';
+        let currentFontSize = 14; // 默认字体大小
+        const MIN_FONT_SIZE = 10; // 最小字体大小
+        const MAX_FONT_SIZE = 30; // 最大字体大小
+        const FONT_SIZE_STEP = 2; // 字体大小调整步长
+
+        // DOM 元素
+        const elements = {
+            newDocModal: document.getElementById('new-doc-modal'),
+            renameDocModal: document.getElementById('rename-doc-modal'),
+            deleteDocModal: document.getElementById('delete-doc-modal'),
+            addWordModal: document.getElementById('add-word-modal'),
+            docNameInput: document.getElementById('doc-name'),
+            renameDocNameInput: document.getElementById('rename-doc-name'),
+            deleteDocName: document.getElementById('delete-doc-name'),
+            documentList: document.getElementById('document-list'),
+            wordList: document.getElementById('word-list'),
+            editor: document.getElementById('editor'),
+            previewContent: document.getElementById('preview-content'),
+            welcomeScreen: document.getElementById('welcome-screen'),
+            editorWrapper: document.getElementById('editor-wrapper'),
+            currentDocName: document.getElementById('current-doc-name'),
+            tooltip: document.getElementById('tooltip'),
+            tooltipWord: document.getElementById('tooltip-word'),
+            tooltipMeaning: document.getElementById('tooltip-meaning'),
+            tooltipPhonetic: document.getElementById('tooltip-phonetic'),
+            tooltipAudio: document.getElementById('tooltip-audio'),
+            decreaseFontBtn: document.getElementById('decrease-font-btn'),
+            resetFontBtn: document.getElementById('reset-font-btn'),
+            increaseFontBtn: document.getElementById('increase-font-btn')
+        };
+
+        // 初始化应用
+        function init() {
+            console.log('Initializing Professional English Notebook...');
+            loadUserDictionary();
+            loadDocuments();
+            renderDocumentList();
+            renderWordList();
+            bindEvents();
+            console.log('Initialization complete.');
+        }
+
+        // 文档管理函数
+        function createDocument(name) {
+            const doc = {
+                id: Date.now().toString(),
+                name: name,
+                content: '',
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+            documents.push(doc);
+            saveDocuments();
+            renderDocumentList();
+            return doc;
+        }
+
+        function openDocument(docId) {
+            const doc = documents.find(d => d.id === docId);
+            if (doc) {
+                currentDocumentId = docId;
+                elements.editor.value = doc.content;
+                elements.currentDocName.textContent = doc.name;
+                elements.welcomeScreen.style.display = 'none';
+                elements.editorWrapper.style.display = 'flex';
+                renderPreview();
+                renderDocumentList(); // 更新选中状态
+                elements.editor.focus();
+            }
+        }
+
+        function saveDocument() {
+            if (currentDocumentId) {
+                const doc = documents.find(d => d.id === currentDocumentId);
+                if (doc) {
+                    doc.content = elements.editor.value;
+                    doc.updatedAt = new Date().toISOString();
+                    saveDocuments();
+                    renderPreview();
+                }
+            }
+        }
+
+        function renameDocument(docId, newName) {
+            const doc = documents.find(d => d.id === docId);
+            if (doc) {
+                doc.name = newName;
+                if (currentDocumentId === docId) {
+                    elements.currentDocName.textContent = newName;
+                }
+                saveDocuments();
+                renderDocumentList();
+            }
+        }
+
+        function deleteDocument(docId) {
+            const index = documents.findIndex(d => d.id === docId);
+            if (index > -1) {
+                documents.splice(index, 1);
+                saveDocuments();
+                renderDocumentList();
+                
+                if (currentDocumentId === docId) {
+                    currentDocumentId = null;
+                    elements.editor.value = '';
+                    elements.welcomeScreen.style.display = 'flex';
+                    elements.editorWrapper.style.display = 'none';
+                    elements.previewContent.innerHTML = '<p>选择一个文档或创建新文档开始编辑...</p>';
+                }
+            }
+        }
+
+        // 词典管理函数
+        function addWordToDictionary(word, meaning, phonetic = '', audio = '') {
+            console.log('addWordToDictionary called with:', { word, meaning, phonetic, audio });
+            const wordKey = word.toLowerCase();
+            console.log('Word key:', wordKey);
+            
+            userDictionary[wordKey] = {
+                meaning: meaning,
+                phonetic: phonetic,
+                audio: audio
+            };
+            
+            console.log('Updated userDictionary entry:', userDictionary[wordKey]);
+            console.log('Current dictionary size:', Object.keys(userDictionary).length);
+            
+            saveUserDictionary();
+            renderWordList();
+            console.log('Word addition process completed');
+        }
+
+        function removeWordFromDictionary(word) {
+            delete userDictionary[word.toLowerCase()];
+            saveUserDictionary();
+            renderWordList();
+            console.log('Word removed from dictionary:', word);
+        }
+
+        // 单词查询函数
+        function lookupWord(word) {
+            return userDictionary[word.toLowerCase()] || null;
+        }
+
+        // 渲染函数
+        function renderDocumentList() {
+            elements.documentList.innerHTML = '';
+
+            if (documents.length === 0) {
+                elements.documentList.innerHTML = `
+                    <li class="document-item" style="justify-content: center; color: #666;">
+                        暂无文档，请创建新文档
+                    </li>
+                `;
+                return;
+            }
+
+            documents.forEach(doc => {
+                const li = document.createElement('li');
+                li.className = `document-item ${currentDocumentId === doc.id ? 'active' : ''}`;
+                li.innerHTML = `
+                    <span class="doc-name">${doc.name}</span>
+                    <div class="document-actions">
+                        <button class="doc-action-btn rename-btn" title="重命名">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                        <button class="doc-action-btn delete-btn" title="删除">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+
+                // 绑定事件
+                li.querySelector('.doc-name').addEventListener('click', () => {
+                    openDocument(doc.id);
+                });
+
+                li.querySelector('.rename-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openRenameModal(doc.id, doc.name);
+                });
+
+                li.querySelector('.delete-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openDeleteModal(doc.id, doc.name);
+                });
+
+                elements.documentList.appendChild(li);
+            });
+        }
+
+        function renderWordList() {
+            elements.wordList.innerHTML = '';
+
+            if (Object.keys(userDictionary).length === 0) {
+                elements.wordList.innerHTML = `
+                    <div style="padding: 20px; text-align: center; color: #666; font-size: 13px;">
+                        暂无添加的单词<br>
+                        <small>点击顶部"添加释义"按钮开始</small>
+                    </div>
+                `;
+                return;
+            }
+
+            Object.keys(userDictionary).forEach(word => {
+                const wordItem = document.createElement('div');
+                wordItem.className = 'word-item';
+                wordItem.innerHTML = `
+                    <span class="word-text">${word}</span>
+                    <span class="word-remove" onclick="removeWordFromDictionary('${word}')" title="删除">
+                        <i class="fa fa-times"></i>
+                    </span>
+                `;
+                elements.wordList.appendChild(wordItem);
+            });
+        }
+
+        function renderPreview() {
+            if (!currentDocumentId) {
+                elements.previewContent.innerHTML = '<p>选择一个文档或创建新文档开始编辑...</p>';
+                return;
+            }
+
+            const doc = documents.find(d => d.id === currentDocumentId);
+            if (doc) {
+                const originalContent = doc.content;
+                const words = originalContent.match(/[a-zA-Z]{2,}/g);
+                
+                // 1. 先处理制表符
+                let previewHtml = originalContent
+                    .replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
+                
+                // 2. 处理单词高亮 - 使用占位符方法
+                if (words) {
+                    const uniqueWords = [...new Set(words)];
+                    const placeholders = {};
+                    let placeholderIndex = 0;
+                    
+                    // 首先替换单词为占位符
+                    uniqueWords.forEach(word => {
+                        if (lookupWord(word)) {
+                            const placeholder = `__HIGHLIGHT_${placeholderIndex++}__`;
+                            const regex = new RegExp('\\b' + word + '\\b', 'gi');
+                            previewHtml = previewHtml.replace(regex, placeholder);
+                            placeholders[placeholder] = word;
+                        }
+                    });
+                    
+                    // 然后进行HTML转义
+                    previewHtml = previewHtml
+                        .replace(/&/g, '&amp;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;')
+                        .replace(/"/g, '&quot;')
+                        .replace(/'/g, '&#039;');
+                    
+                    // 接着处理换行符
+                    previewHtml = previewHtml.replace(/\n/g, '<br>');
+                    
+                    // 最后将占位符替换回高亮标签
+                    Object.keys(placeholders).forEach(placeholder => {
+                        const word = placeholders[placeholder];
+                        previewHtml = previewHtml.split(placeholder).join('<span class="highlight" data-word="' + word + '">' + word + '</span>');
+                    });
+                } else {
+                    // 如果没有单词需要高亮
+                    // 先进行HTML转义
+                    previewHtml = previewHtml
+                        .replace(/&/g, '&amp;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;')
+                        .replace(/"/g, '&quot;')
+                        .replace(/'/g, '&#039;');
+                    
+                    // 再处理换行符
+                    previewHtml = previewHtml.replace(/\n/g, '<br>');
+                }
+                
+                elements.previewContent.innerHTML = previewHtml || '<p>文档为空，请开始输入...</p>';
+
+                // 为高亮单词绑定事件
+                elements.previewContent.querySelectorAll('.highlight').forEach(highlight => {
+                    // 桌面端事件
+                    highlight.addEventListener('mouseenter', function(e) {
+                        const word = this.getAttribute('data-word');
+                        showTooltip(e, word);
+                    });
+                    
+                    highlight.addEventListener('mouseleave', hideTooltip);
+                    
+                    // 移动端触摸事件
+                    highlight.addEventListener('touchstart', function(e) {
+                        e.preventDefault();
+                        const word = this.getAttribute('data-word');
+                        showTooltip(e, word);
+                    });
+                    
+                    // 点击事件（同时支持桌面和移动端）
+                    highlight.addEventListener('click', function(e) {
+                        const word = this.getAttribute('data-word');
+                        showTooltip(e, word);
+                    });
+                });
+            }
+        }
+
+        // 显示和隐藏单词释义气泡
+        function showTooltip(event, word) {
+            word = word.toLowerCase();
+            
+            if (userDictionary[word]) {
+                const info = userDictionary[word];
+                
+                elements.tooltipWord.textContent = word;
+                elements.tooltipMeaning.textContent = info.meaning;
+                elements.tooltipPhonetic.textContent = info.phonetic || '';
+                
+                if (info.audio) {
+                    elements.tooltipAudio.onclick = () => playAudio(info.audio);
+                    elements.tooltipAudio.style.display = 'inline-block';
+                } else {
+                    elements.tooltipAudio.style.display = 'none';
+                }
+                
+                // 定位气泡
+                const rect = event.target.getBoundingClientRect();
+                elements.tooltip.style.left = `${rect.left + rect.width / 2}px`;
+                elements.tooltip.style.top = `${rect.bottom + 10}px`;
+                elements.tooltip.style.display = 'block';
+                
+                // 确保气泡在视窗内
+                const tooltipRect = elements.tooltip.getBoundingClientRect();
+                if (tooltipRect.right > window.innerWidth) {
+                    elements.tooltip.style.left = `${window.innerWidth - tooltipRect.width - 10}px`;
+                }
+                if (tooltipRect.bottom > window.innerHeight) {
+                    elements.tooltip.style.top = `${rect.top - tooltipRect.height - 10}px`;
+                }
+            }
+        }
+
+        function hideTooltip() {
+            elements.tooltip.style.display = 'none';
+        }
+
+        // 播放音频
+        function playAudio(url) {
+            if (url) {
+                const audio = new Audio(url);
+                audio.play().catch(error => {
+                    console.error('播放音频失败:', error);
+                });
+            }
+        }
+
+        // 模态框函数
+        function openNewDocModal() {
+            elements.newDocModal.style.display = 'flex';
+            elements.docNameInput.value = '';
+            elements.docNameInput.focus();
+        }
+
+        function openRenameModal(docId, currentName) {
+            elements.renameDocModal.style.display = 'flex';
+            elements.renameDocNameInput.value = currentName;
+            elements.renameDocModal.dataset.docId = docId;
+            elements.renameDocNameInput.focus();
+        }
+
+        function openDeleteModal(docId, docName) {
+            elements.deleteDocModal.style.display = 'flex';
+            elements.deleteDocName.textContent = docName;
+            elements.deleteDocModal.dataset.docId = docId;
+        }
+
+        // 本地存储函数
+        function saveDocuments() {
+            localStorage.setItem('professionalDocuments', JSON.stringify(documents));
+        }
+
+        function loadDocuments() {
+            const saved = localStorage.getItem('professionalDocuments');
+            if (saved) {
+                documents = JSON.parse(saved);
+            }
+        }
+
+        function saveUserDictionary() {
+            localStorage.setItem('professionalUserDictionary', JSON.stringify(userDictionary));
+        }
+
+        function loadUserDictionary() {
+            const saved = localStorage.getItem('professionalUserDictionary');
+            if (saved) {
+                userDictionary = JSON.parse(saved);
+            }
+        }
+        
+        // 数据导出功能
+        function exportData() {
+            const data = {
+                documents: documents,
+                userDictionary: userDictionary,
+                exportDate: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `english_notebook_data_${new Date().toISOString().slice(0, 10)}.json`;
+            link.click();
+            
+            URL.revokeObjectURL(url);
+        }
+        
+        // 数据导入功能
+        function importData(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    
+                    if (data.documents) {
+                        documents = data.documents;
+                        saveDocuments();
+                        renderDocumentList();
+                    }
+                    
+                    if (data.userDictionary) {
+                        userDictionary = data.userDictionary;
+                        saveUserDictionary();
+                        renderWordList();
+                    }
+                    
+                    // 如果当前有打开的文档，重新渲染
+                    if (currentDocumentId) {
+                        renderPreview();
+                    }
+                    
+                    alert('数据导入成功！');
+                } catch (error) {
+                    alert('数据导入失败，请检查文件格式是否正确。');
+                    console.error('Import error:', error);
+                }
+            };
+            reader.readAsText(file);
+        }
+        
+        // 字体大小调节功能
+        function adjustFontSize(delta) {
+            currentFontSize += delta;
+            currentFontSize = Math.max(MIN_FONT_SIZE, Math.min(MAX_FONT_SIZE, currentFontSize));
+            applyFontSize();
+        }
+        
+        function resetFontSize() {
+            currentFontSize = 14; // 恢复默认字体大小
+            applyFontSize();
+        }
+        
+        function applyFontSize() {
+            elements.previewContent.style.fontSize = `${currentFontSize}px`;
+        }
+        
+        // 词典导出功能
+        function exportDictionary() {
+            // 提供两种导出选项
+            const options = [
+                { id: 'csv', name: '导出为Excel表格 (.csv)' },
+                { id: 'json', name: '导出为JSON文件 (.json)' }
+            ];
+            
+            const choice = prompt('请选择导出格式:\n1. 导出为Excel表格 (.csv)\n2. 导出为JSON文件 (.json)\n\n输入数字选择:');
+            
+            if (choice === '1') {
+                // 导出为CSV格式（Excel兼容）
+                exportDictionaryToCSV();
+            } else if (choice === '2') {
+                // 导出为JSON格式
+                exportDictionaryToJSON();
+            }
+        }
+        
+        // 导出为CSV格式
+        function exportDictionaryToCSV() {
+            // 在CSV开头添加UTF-8 BOM，解决Excel打开乱码问题
+            const bom = '\ufeff';
+            let csvContent = bom + '单词,释义,音标,音频链接\n';
+            
+            // 遍历词典并生成CSV内容
+            Object.keys(userDictionary).forEach(word => {
+                const entry = userDictionary[word];
+                const csvLine = [
+                    word,
+                    entry.meaning || '',
+                    entry.phonetic || '',
+                    entry.audio || ''
+                ].map(field => `"${field.replace(/"/g, '""')}"`).join(',');
+                csvContent += csvLine + '\n';
+            });
+            
+            // 创建并下载文件
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `english_notebook_dictionary_${new Date().toISOString().slice(0, 10)}.csv`;
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        // 导出为JSON格式
+        function exportDictionaryToJSON() {
+            const data = {
+                dictionary: userDictionary,
+                exportDate: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `english_notebook_dictionary_${new Date().toISOString().slice(0, 10)}.json`;
+            link.click();
+            
+            URL.revokeObjectURL(url);
+        }
+        
+        // 词典导入功能
+        function importDictionary(file) {
+            const fileExt = file.name.split('.').pop().toLowerCase();
+            
+            if (fileExt === 'json') {
+                importDictionaryFromJSON(file);
+            } else if (['csv', 'xlsx', 'xls'].includes(fileExt)) {
+                importDictionaryFromCSV(file);
+            } else {
+                alert('不支持的文件格式，请选择 .json 或 .csv/.xlsx/.xls 文件。');
+            }
+        }
+        
+        // 从JSON导入词典
+        function importDictionaryFromJSON(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    const newDictionary = data.dictionary || data;
+                    
+                    // 合并到现有词典（或替换，根据需求）
+                    const confirmReplace = confirm('是否替换现有词典？\n\n选择"确定"将替换所有现有词典内容，\n选择"取消"将合并到现有词典中。');
+                    
+                    if (confirmReplace) {
+                        userDictionary = newDictionary;
+                    } else {
+                        Object.assign(userDictionary, newDictionary);
+                    }
+                    
+                    saveUserDictionary();
+                    renderWordList();
+                    if (currentDocumentId) {
+                        renderPreview();
+                    }
+                    
+                    alert('词典导入成功！');
+                } catch (error) {
+                    alert('JSON文件导入失败，请检查文件格式是否正确。');
+                    console.error('Import error:', error);
+                }
+            };
+            reader.readAsText(file);
+        }
+        
+        // 从CSV导入词典
+        function importDictionaryFromCSV(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const csvContent = e.target.result;
+                    const lines = csvContent.split(/\r?\n/);
+                    const newDictionary = {};
+                    
+                    // 跳过表头行
+                    for (let i = 1; i < lines.length; i++) {
+                        const line = lines[i].trim();
+                        if (!line) continue;
+                        
+                        // 解析CSV行（简单实现，支持引号包裹的字段）
+                        const fields = [];
+                        let field = '';
+                        let inQuotes = false;
+                        
+                        for (let j = 0; j < line.length; j++) {
+                            const char = line[j];
+                            
+                            if (char === '"') {
+                                inQuotes = !inQuotes;
+                            } else if (char === ',' && !inQuotes) {
+                                fields.push(field.trim());
+                                field = '';
+                            } else {
+                                field += char;
+                            }
+                        }
+                        fields.push(field.trim());
+                        
+                        // 提取字段
+                        const [word, meaning, phonetic = '', audio = ''] = fields;
+                        if (word && meaning) {
+                            newDictionary[word.toLowerCase()] = {
+                                meaning: meaning,
+                                phonetic: phonetic,
+                                audio: audio
+                            };
+                        }
+                    }
+                    
+                    // 合并到现有词典
+                    const confirmReplace = confirm(`发现 ${Object.keys(newDictionary).length} 个单词。是否替换现有词典？\n\n选择"确定"将替换所有现有词典内容，\n选择"取消"将合并到现有词典中。`);
+                    
+                    if (confirmReplace) {
+                        userDictionary = newDictionary;
+                    } else {
+                        Object.assign(userDictionary, newDictionary);
+                    }
+                    
+                    saveUserDictionary();
+                    renderWordList();
+                    if (currentDocumentId) {
+                        renderPreview();
+                    }
+                    
+                    alert(`词典导入成功！共导入 ${Object.keys(newDictionary).length} 个单词。`);
+                } catch (error) {
+                    alert('CSV文件导入失败，请检查文件格式是否正确。');
+                    console.error('Import error:', error);
+                }
+            };
+            reader.readAsText(file, 'utf-8');
+        }
+
+        // 防抖函数
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // 事件绑定函数
+        function bindEvents() {
+            console.log('Binding events...');
+
+            // 新建文档按钮
+            document.getElementById('new-doc-btn').addEventListener('click', openNewDocModal);
+            document.getElementById('welcome-new-doc-btn').addEventListener('click', openNewDocModal);
+            
+            // 数据导出按钮
+            document.getElementById('export-data-btn').addEventListener('click', exportData);
+            
+            // 数据导入按钮
+            document.getElementById('import-data-btn').addEventListener('click', () => {
+                document.getElementById('import-file-input').click();
+            });
+            
+            // 文件选择事件
+            document.getElementById('import-file-input').addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    importData(file);
+                    // 清空文件选择
+                    e.target.value = '';
+                }
+            });
+            
+            // 字体大小调节事件
+            elements.decreaseFontBtn.addEventListener('click', () => {
+                adjustFontSize(-FONT_SIZE_STEP);
+            });
+            
+            elements.resetFontBtn.addEventListener('click', resetFontSize);
+            
+            elements.increaseFontBtn.addEventListener('click', () => {
+                adjustFontSize(FONT_SIZE_STEP);
+            });
+            
+            // 词典导入导出事件
+            document.getElementById('export-dictionary-btn').addEventListener('click', exportDictionary);
+            
+            document.getElementById('import-dictionary-btn').addEventListener('click', () => {
+                document.getElementById('dictionary-file-input').click();
+            });
+            
+            document.getElementById('dictionary-file-input').addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    importDictionary(file);
+                    // 清空文件选择
+                    e.target.value = '';
+                }
+            });
+
+            // 保存文档按钮
+            document.getElementById('save-doc-btn').addEventListener('click', saveDocument);
+
+            // 添加单词按钮
+            document.getElementById('add-word-btn').addEventListener('click', () => {
+                elements.addWordModal.style.display = 'flex';
+                document.getElementById('batch-words-input').value = '';
+                document.getElementById('batch-words-input').focus();
+            });
+
+            // 编辑器内容变化事件
+            elements.editor.addEventListener('input', debounce(() => {
+                saveDocument();
+            }, 1000));
+
+            // 编辑器选择文本事件
+            elements.editor.addEventListener('mouseup', () => {
+                const selection = window.getSelection();
+                selectedText = selection.toString().trim();
+                if (selectedText && /^[a-zA-Z]{2,}$/.test(selectedText)) {
+                    const wordInfo = lookupWord(selectedText);
+                    if (wordInfo) {
+                        const rect = selection.getRangeAt(0).getBoundingClientRect();
+                        const event = {
+                            target: {
+                                getBoundingClientRect: () => rect
+                            }
+                        };
+                        showTooltip(event, selectedText);
+                    }
+                }
+            });
+
+            // 侧边栏标签切换
+            document.querySelectorAll('.sidebar-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.sidebar-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    const tabName = tab.getAttribute('data-tab');
+                    if (tabName === 'documents') {
+                        document.getElementById('documents-panel').style.display = 'block';
+                        document.getElementById('dictionary-panel').style.display = 'none';
+                    } else {
+                        document.getElementById('documents-panel').style.display = 'none';
+                        document.getElementById('dictionary-panel').style.display = 'block';
+                    }
+                });
+            });
+
+            // 模态框事件
+            // 新建文档
+            document.getElementById('cancel-new-doc').addEventListener('click', () => {
+                elements.newDocModal.style.display = 'none';
+            });
+
+            document.getElementById('confirm-new-doc').addEventListener('click', () => {
+                const name = elements.docNameInput.value.trim();
+                if (name) {
+                    const newDoc = createDocument(name);
+                    openDocument(newDoc.id);
+                    elements.newDocModal.style.display = 'none';
+                } else {
+                    alert('请输入文档名称');
+                }
+            });
+
+            // 重命名文档
+            document.getElementById('cancel-rename-doc').addEventListener('click', () => {
+                elements.renameDocModal.style.display = 'none';
+            });
+
+            document.getElementById('confirm-rename-doc').addEventListener('click', () => {
+                const newName = elements.renameDocNameInput.value.trim();
+                const docId = elements.renameDocModal.dataset.docId;
+                if (newName && docId) {
+                    renameDocument(docId, newName);
+                    elements.renameDocModal.style.display = 'none';
+                } else {
+                    alert('请输入新文档名称');
+                }
+            });
+
+            // 删除文档
+            document.getElementById('cancel-delete-doc').addEventListener('click', () => {
+                elements.deleteDocModal.style.display = 'none';
+            });
+
+            document.getElementById('confirm-delete-doc').addEventListener('click', () => {
+                const docId = elements.deleteDocModal.dataset.docId;
+                if (docId) {
+                    deleteDocument(docId);
+                    elements.deleteDocModal.style.display = 'none';
+                }
+            });
+
+            // 添加单词
+            document.getElementById('cancel-add-word').addEventListener('click', () => {
+                elements.addWordModal.style.display = 'none';
+            });
+
+            document.getElementById('confirm-add-word').addEventListener('click', () => {
+                const batchInput = document.getElementById('batch-words-input').value.trim();
+                
+                if (!batchInput) {
+                    alert('请输入单词和释义');
+                    return;
+                }
+                
+                // 解析批量输入：支持换行符和逗号分隔
+                const entries = batchInput.split(/[\n,]+/).map(entry => entry.trim()).filter(entry => entry);
+                let addedCount = 0;
+                let errorEntries = [];
+                
+                entries.forEach(entry => {
+                    // 解析 "单词:释义" 格式
+                    const parts = entry.split(':');
+                    if (parts.length >= 2) {
+                        const word = parts[0].trim();
+                        const meaning = parts.slice(1).join(':').trim();
+                        if (word && meaning) {
+                            addWordToDictionary(word, meaning);
+                            addedCount++;
+                        } else {
+                            errorEntries.push(entry);
+                        }
+                    } else {
+                        errorEntries.push(entry);
+                    }
+                });
+                
+                if (addedCount > 0) {
+                    elements.addWordModal.style.display = 'none';
+                    document.getElementById('batch-words-input').value = '';
+                    if (currentDocumentId) {
+                        renderPreview(); // 更新预览中的高亮
+                    }
+                    alert(`成功添加 ${addedCount} 个单词释义${errorEntries.length > 0 ? `，${errorEntries.length} 个格式错误` : ''}`);
+                } else if (errorEntries.length > 0) {
+                    alert('所有词条格式错误，请使用"单词:释义"格式');
+                }
+            });
+
+            // 点击模态框背景关闭模态框
+            window.addEventListener('click', (event) => {
+                if (event.target.classList.contains('modal')) {
+                    event.target.style.display = 'none';
+                }
+            });
+
+            // 点击其他地方隐藏气泡（同时支持桌面和移动端）
+            document.addEventListener('click', (event) => {
+                if (!event.target.closest('#tooltip') && !event.target.classList.contains('highlight')) {
+                    hideTooltip();
+                }
+            });
+            
+            // 移动端触摸其他地方隐藏气泡
+            document.addEventListener('touchstart', (event) => {
+                if (!event.target.closest('#tooltip') && !event.target.classList.contains('highlight')) {
+                    hideTooltip();
+                }
+            });
+
+            // ESC 键关闭模态框
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    document.querySelectorAll('.modal').forEach(modal => {
+                        modal.style.display = 'none';
+                    });
+                    hideTooltip();
+                }
+            });
+
+            // 回车键确认
+            document.getElementById('doc-name').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    document.getElementById('confirm-new-doc').click();
+                }
+            });
+
+            document.getElementById('rename-doc-name').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    document.getElementById('confirm-rename-doc').click();
+                }
+            });
+
+            // 批量输入框Ctrl+Enter快捷键
+            document.getElementById('batch-words-input').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && e.ctrlKey) {
+                    document.getElementById('confirm-add-word').click();
+                }
+            });
+
+            console.log('Events bound successfully.');
+        }
+
+        // 启动应用
+        init();
+    </script>
+</body>
+</html>
