@@ -1,0 +1,283 @@
+{
+  "documents": [
+    {
+      "id": "1767837809105",
+      "name": "Found The First Web",
+      "content": "repository\n### 2. 使用GitHub Pages部署（推荐） 步骤1：创建GitHub账号\n如果没有GitHub账号，先在 GitHub 注册。\n 步骤2：创建新仓库\n- 登录GitHub，点击右上角\"+\"号，选择\"New repository\"\n- 仓库名称建议使用 <your-username>.github.io （这将成为您的默认域名）\n- 选择\"Public\"，勾选\"Initialize this repository with a README\"\n- 点击\"Create repository\" 步骤3：上传网页文件\n- 进入刚创建的仓库，点击\"Add file\" → \"Upload files\"\n- 上传 professional _ version.html 文件，也可以重命名为 index.html （作为默认首页）\n- 填写提交信息，点击\"Commit changes\" 步骤4：启用GitHub Pages\n- 进入仓库的\"Settings\" → \"Pages\"\n- 在\"Source\"部分，选择\"main\"分支，点击\"Save\"\n- 等待几分钟，您的网站就会通过 https://<your-username>.github.io 访问\n\n其他相关：\nGreat repository names are short and memorable\n\nDescription  \nenter file contents here\nGitHub Pages documentation\nLearn how to create a website directly from a repository on GitHub. Explore website building tools like Jekyll and troubleshoot issues with your GitHub Pages site.\ncreate  document\nYou have triggered my memory          trigger     preview",
+      "createdAt": "2026-01-08T02:03:29.105Z",
+      "updatedAt": "2026-01-09T08:06:57.938Z"
+    },
+    {
+      "id": "1767884249157",
+      "name": "Quickstart for GitHub Pages",
+      "content": "You can use GitHub Pages to showcase some open source projects, host a blog, or even share your resume. This guide will help get you started on creating your next website.\nWho can use this feature?\nGitHub Pages is available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see GitHub’s plans.\nIntroduction\nIn this guide, you'll create a user site at <username>.github.io.\n﻿\nCreating your website\nCommit ",
+      "createdAt": "2026-01-08T14:57:29.157Z",
+      "updatedAt": "2026-01-09T08:28:44.257Z"
+    },
+    {
+      "id": "1768016691883",
+      "name": "GitHub_New_Words",
+      "content": "code issues   pull request  Security    Insights     Settings   Branch   tag   fork",
+      "createdAt": "2026-01-10T03:44:51.883Z",
+      "updatedAt": "2026-01-10T04:01:27.954Z"
+    }
+  ],
+  "userDictionary": {
+    "aims": {
+      "meaning": "/eɪmz目的/",
+      "phonetic": "",
+      "audio": ""
+    },
+    "specific": {
+      "meaning": "/spəˈsɪfɪk具体的特定的/",
+      "phonetic": "",
+      "audio": ""
+    },
+    "behaviour": {
+      "meaning": "/bɪˈheɪvjə(r)行为、态度、举止、表现方式/",
+      "phonetic": "",
+      "audio": ""
+    },
+    "supported": {
+      "meaning": "/səˈpɔːrtɪd支持、帮助//ˌɪnstəˈleɪʃn安装、设施/",
+      "phonetic": "",
+      "audio": ""
+    },
+    "repository": {
+      "meaning": "[rɪˈpɑːzətɔːri]仓库;存放处;贮藏室;智囊;知识宝典;学识渊博的人;",
+      "phonetic": "",
+      "audio": ""
+    },
+    "initialize": {
+      "meaning": "[ɪˈnɪʃəlaɪz]vt.初始化(计算机程序或系统);预置;格式化(磁盘);",
+      "phonetic": "",
+      "audio": ""
+    },
+    "readme": {
+      "meaning": "/'ri:dmi/自述",
+      "phonetic": "",
+      "audio": ""
+    },
+    "public": {
+      "meaning": "/ˈpʌblɪk/公众的",
+      "phonetic": "",
+      "audio": ""
+    },
+    "create": {
+      "meaning": "/kriˈeɪt/vt.创建；创造；造成，引起",
+      "phonetic": "",
+      "audio": ""
+    },
+    "professional": {
+      "meaning": "/prəˈfeʃənl/adj.专业的；职业的；训练有素的；",
+      "phonetic": "",
+      "audio": ""
+    },
+    "version": {
+      "meaning": "/ˈvɜːrʒn/n.(电影、剧本、乐曲等的)版本；描述；型式；",
+      "phonetic": "",
+      "audio": ""
+    },
+    "index": {
+      "meaning": "/ˈɪndeks/n.(物价和工资等的)指数；索引；指标；标志；表征；量度",
+      "phonetic": "",
+      "audio": ""
+    },
+    "commit": {
+      "meaning": "/kəˈmɪt/v.承诺，保证(做某事、遵守协议或遵从安排等)；犯罪；犯(罪或错等)；做出(错或非法的事)；自杀；",
+      "phonetic": "",
+      "audio": ""
+    },
+    "settings": {
+      "meaning": "/ˈsɛtɪŋz/n.设置",
+      "phonetic": "",
+      "audio": ""
+    },
+    "source": {
+      "meaning": "/sɔːrs/n.来源；源头；原因；根源；",
+      "phonetic": "",
+      "audio": ""
+    },
+    "solo": {
+      "meaning": "/ˈsoʊloʊ/n.独奏；独唱；单飞；独舞；单人表演",
+      "phonetic": "",
+      "audio": ""
+    },
+    "programming": {
+      "meaning": "n.程序设计，程序编制，编程；编排，选编",
+      "phonetic": "",
+      "audio": ""
+    },
+    "program": {
+      "meaning": "n.程序；编码指令；节目",
+      "phonetic": "",
+      "audio": ""
+    },
+    "memorable": {
+      "meaning": "/ˈmemərəbl/adj.难忘的；值得纪念的",
+      "phonetic": "",
+      "audio": ""
+    },
+    "description": {
+      "meaning": "/dɪˈskrɪpʃn/n.描述；说明；类型；描写(文字)；形容",
+      "phonetic": "",
+      "audio": ""
+    },
+    "enter": {
+      "meaning": "/ˈentər/v.进入；登记，输入；参加，报名；",
+      "phonetic": "",
+      "audio": ""
+    },
+    "contents": {
+      "meaning": "/kənˈtents/n.内容；目录；(书、讲话、节目等的)主题；",
+      "phonetic": "",
+      "audio": ""
+    },
+    "cancel": {
+      "meaning": "/ˈkænsl/v.取消；撤销，注销；终止；废除n.取消；",
+      "phonetic": "",
+      "audio": ""
+    },
+    "showcase": {
+      "meaning": "/ˈʃoʊkeɪs/n.玻璃陈列柜，展示柜",
+      "phonetic": "",
+      "audio": ""
+    },
+    "host": {
+      "meaning": "/hoʊst/vt.主办；主持(电视或广播节目等)；做东；存储网站；n.主机，服务机；",
+      "phonetic": "",
+      "audio": ""
+    },
+    "blog": {
+      "meaning": "/blɑːɡ/n.博客；网志",
+      "phonetic": "",
+      "audio": ""
+    },
+    "resume": {
+      "meaning": "[rɪˈzuːm]n.简历; 摘要; 概述; 概要",
+      "phonetic": "",
+      "audio": ""
+    },
+    "guide": {
+      "meaning": "/ɡaɪd/vt.指导；指引；影响(某人的行为)；n.指南；导游；向导；手册；指导者",
+      "phonetic": "",
+      "audio": ""
+    },
+    "feature": {
+      "meaning": "/ˈfiːtʃər/n.特色；特点；特征；",
+      "phonetic": "",
+      "audio": ""
+    },
+    "available": {
+      "meaning": "/əˈveɪləbl/adj.可获得的；有空的；可购得的；",
+      "phonetic": "",
+      "audio": ""
+    },
+    "organizations": {
+      "meaning": "/ˌɔrgənəˈzeɪʃənz/n.组织；机构",
+      "phonetic": "",
+      "audio": ""
+    },
+    "private": {
+      "meaning": "/ˈpraɪvɪt/adj.私人的；私有的；私立的",
+      "phonetic": "",
+      "audio": ""
+    },
+    "enterprise": {
+      "meaning": "ˈentərpraɪz/n.企业；公司",
+      "phonetic": "",
+      "audio": ""
+    },
+    "introduction": {
+      "meaning": "/ˌɪntrəˈdʌkʃn/n.介绍；引进；推行；序言",
+      "phonetic": "",
+      "audio": ""
+    },
+    "site": {
+      "meaning": "/saɪt/n.现场；网站；站点",
+      "phonetic": "",
+      "audio": ""
+    },
+    "documentation": {
+      "meaning": "/ˌdɑːkjumenˈteɪʃn/n.文档；证明文件；归档；",
+      "phonetic": "",
+      "audio": ""
+    },
+    "directly": {
+      "meaning": "/dəˈrektli/adv.直接地；坦率地；",
+      "phonetic": "",
+      "audio": ""
+    },
+    "explore": {
+      "meaning": "/ɪkˈsplɔːr/v.探讨；探索；勘探；",
+      "phonetic": "",
+      "audio": ""
+    },
+    "troubleshoot": {
+      "meaning": "/ˈtrʌblʃuːt/v.故障排除；检修",
+      "phonetic": "",
+      "audio": ""
+    },
+    "issues": {
+      "meaning": "/ˈɪʃuːz/n.(有关某事的)问题，担忧；一期；重要议题；争论的问题；期号v.发出；(正式)发给，供给；公布；宣布；",
+      "phonetic": "",
+      "audio": ""
+    },
+    "trigger": {
+      "meaning": "/ˈtrɪɡər/vt.触发；引起；起动；发动；开动n.触发器；(枪的)扳机；",
+      "phonetic": "",
+      "audio": ""
+    },
+    "triggered": {
+      "meaning": "/ˈtrɪɡərd/",
+      "phonetic": "",
+      "audio": ""
+    },
+    "preview": {
+      "meaning": "/ˈpriːvjuː/n.预览；预演；预告；预展；vt.概述",
+      "phonetic": "",
+      "audio": ""
+    },
+    "code": {
+      "meaning": "/koʊd/n.代码；编码；密码；法典；行为规范；电码；道德准则；暗码vt.编码；",
+      "phonetic": "",
+      "audio": ""
+    },
+    "request": {
+      "meaning": "/rɪˈkwest/n.(正式或礼貌的)要求，请求；v.(正式或礼貌地)请求，要求",
+      "phonetic": "",
+      "audio": ""
+    },
+    "security": {
+      "meaning": "[sɪˈkjʊrəti]n.安全; 证券;",
+      "phonetic": "",
+      "audio": ""
+    },
+    "insights": {
+      "meaning": "/ˈɪnˌsaɪts/网络 洞察力；洞察；洞悉；",
+      "phonetic": "",
+      "audio": ""
+    },
+    "branch": {
+      "meaning": "/bræntʃ/n.树枝；分支；分行；分支机构；vi.分开；分岔",
+      "phonetic": "",
+      "audio": ""
+    },
+    "tag": {
+      "meaning": "/tæɡ/n.标签；标记；标牌；符号，名字；vt.给…加上标签；",
+      "phonetic": "",
+      "audio": ""
+    },
+    "activity": {
+      "meaning": "/ækˈtɪvəti/n.(为兴趣、娱乐或达到一定目的而进行的)活动；活跃；",
+      "phonetic": "",
+      "audio": ""
+    },
+    "fork": {
+      "meaning": "/fɔːrk/n.叉(挖掘用的园艺工具)；餐叉；岔路；叉状物；(道路、河流等的)分岔处；车叉子v.分岔；叉运；岔开两条分支；走岔路中的一条；叉掘",
+      "phonetic": "",
+      "audio": ""
+    }
+  },
+  "exportDate": "2026-01-10T14:58:50.562Z"
+}
